@@ -1,0 +1,47 @@
+<% include ./partials/header %>
+<form id="editForm">
+<table>
+    <thead>
+        <th>Tanggal</th>
+        <th><input type="date" id="dateEdit" name="date"></input></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Max</td>
+            <td><input type="text" id="maxWeightEdit" name="maxWeight" placeholder="Berat Maksimum"></input></td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td><input type="text" id="minWeightEdit" name="minWeight" placeholder="Berat Minimum"></input></td>
+        </tr>
+    </tbody>
+</table><br/>
+<button type="submit">Simpan</button>
+</form>
+
+<script>
+    $.ajax({
+        type : 'GET',
+        url: '/api/weights/<%= id %>',
+        success: function(res){
+            $('#dateEdit').val(res.date.toString().slice(0,10))
+            $('#maxWeightEdit').val(res.maxWeight)
+            $('#minWeightEdit').val(res.minWeight)
+        },
+        error: function(){
+            console.log('error fetching!')
+        }
+    })
+    let editForm = $('#editForm')
+    editForm.on('submit', (e)=>{
+        e.preventDefault();
+        if(parseInt($('#maxWeightEdit').val()) < parseInt($('#minWeightEdit').val())){
+            alert('Berat minimum tidak boleh lebih dari berat maksimum!')
+            return false
+        }
+        editData('<%= id %>', editForm.serialize())
+    })
+</script>
+
+<a href="javascript:history.back()">Kembali</a>
+<% include ./partials/footer %>

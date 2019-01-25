@@ -1,0 +1,25 @@
+<% include ./partials/header %>
+<form id="createFrom">
+    <label for="date">Tanggal : </label>
+    <input id="date" name="date" type="date" required> <br/>
+    <label for="maxWeight">Berat Maksimum : </label>
+    <input id="maxWeight"  name="maxWeight" type="number" placeholder="56" required><br/>
+    <label for="minWeight">Berat Minimum : </label>
+    <input id="minWeight" name="minWeight" type="number" placeholder="53" required><br/>
+    <button>Submit</button>
+</form>
+
+<script>
+let createFrom = $('#createFrom')
+createFrom.on('submit', (e) =>{
+    if(parseInt($('#maxWeight').val()) < parseInt($('#minWeight').val())){
+        alert('Berat minimum tidak boleh lebih dari berat maksimum!')
+        return false
+    }
+    e.preventDefault();
+    inputData(createFrom.serialize());
+})
+</script>
+
+<a href="javascript:history.back()">Kembali</a>
+<% include ./partials/footer %>

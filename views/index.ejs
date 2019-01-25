@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+    <a href="/new">Input data baru</a>
+    <table>
+        <thead>
+            <th>Tanggal</th>
+            <th>Max</th>
+            <th>Min</th>
+            <th>Perbedaan</th>
+        </thead>
+        <tbody id="body">
+        </tbody>
+        <tfoot>
+            <th>Rata-rata</th>
+            <th id="maxAverage"></th>
+            <th id="minAverage"></th>
+            <th id="diffAverage"></th>
+        </tfoot>
+    </table>
+    
+    <script src='/javascripts/index-page.js'></script>
+
+<% include ./partials/footer %>

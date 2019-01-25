@@ -1,0 +1,43 @@
+<% include ./partials/header %>
+<table>
+    <thead>
+        <th>Tanggal</th>
+        <th id="showTanggal"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Max</td>
+            <td id="showMax"></td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td id="showMin"></td>
+        </tr>
+        <tr>
+            <td>Perbedaan</td>
+            <td id="showPerbedaan"></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $.ajax({
+        type : 'GET',
+        url: '/api/weights/<%= id %>',
+        success: function(res){
+            $('#showTanggal').text(res.date.toString().slice(0,10))
+            $('#showMax').text(res.maxWeight)
+            $('#showMin').text(res.minWeight)
+            $('#showPerbedaan').text(res.maxWeight - res.minWeight)
+        },
+        error: function(){
+            console.log('error fetching!')
+        }
+    })
+</script>
+
+<a href="javascript:history.back()">Kembali</a> | 
+<a href="/weights/<%= id %>/edit">Edit</a> | 
+<button onclick="hapusData('<%= id %>')">Hapus</button>
+
+<% include ./partials/footer %>
